@@ -36,7 +36,7 @@ namespace Calc.Tests
         }
 
         [Test]
-        public void Something()
+        public void CalculationCorrectWorksWithFloatPoint()
         {
             var mock = new Mock<INotation>();
 
@@ -46,6 +46,19 @@ namespace Calc.Tests
             var calc = new Calc(mock.Object);
 
             Assert.AreEqual(calc.Calculation("5.5+4.5"), 10);
+        }
+
+        [Test]
+        public void CalculationThrowsExceptionWhenAfterCalculateStackContains2El()
+        {
+            var mock = new Mock<INotation>();
+
+            mock.Setup(x => x.Convert2PostfixNotation("(5)(4)"))
+                .Returns(new List<string> { "5", "4" });
+
+            var calc = new Calc(mock.Object);
+
+            Assert.Throws<Exception>(() => calc.Calculation("(5)(4)"), "После окончания расчета в стеке должен остаться один элемент - результат");
         }
     }
 }

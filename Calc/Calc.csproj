@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calc\Calc.cs" />
-    <Compile Include="Calc\ICalc.cs" />
     <Compile Include="Calc\INotation.cs" />
     <Compile Include="Calc\Notation.cs" />
     <Compile Include="Calc\OperationExtension.cs" />

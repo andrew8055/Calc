@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Calc
 {
-    class Calc : ICalc
+    class Calc
     {
         private readonly INotation notation;
 
@@ -17,14 +17,11 @@ namespace Calc
             try
             {
                 Console.WriteLine("Введите выражение:");
-                
+
                 var str = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(str))
-                {
-                    Console.WriteLine("Line is empty!");
-                    return;
-                }
+                    throw new Exception("Line is empty!");
 
                 Console.WriteLine(Calculation(str));
             }
@@ -45,6 +42,9 @@ namespace Calc
 
                 values.Push(double.TryParse(el, out resultPars) ? resultPars : el.ApplyTo(values));
             }
+
+            if(values.Count > 1)
+                throw new Exception("Expression is not valid!");
 
             return values.Pop();
         }

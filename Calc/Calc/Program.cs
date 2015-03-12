@@ -9,9 +9,8 @@ namespace Calc
             var kernel = new StandardKernel();
             
             kernel.Bind<INotation>().To<Notation>();
-            kernel.Bind<ICalc>().To<Calc>();
 
-            var calc = kernel.Get<ICalc>();
+            var calc = kernel.Get<Calc>();
 
             while (true)
                 calc.Run();
