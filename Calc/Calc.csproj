@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Calc\Calc.cs" />
     <Compile Include="Calc\INotation.cs" />
+    <Compile Include="Calc\IOManager.cs" />
     <Compile Include="Calc\Notation.cs" />
     <Compile Include="Calc\OperationExtension.cs" />
     <Compile Include="Calc\Operators.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Calc\Splitter.cs" />
     <Compile Include="Tests\CalcTest.cs" />
+    <Compile Include="Tests\IOManagerTest.cs" />
     <Compile Include="Tests\NotationTest.cs" />
     <Compile Include="Tests\OperationExtensionTest.cs" />
     <Compile Include="Tests\SplitterTest.cs" />

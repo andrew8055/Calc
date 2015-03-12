@@ -16,18 +16,18 @@ namespace Calc
         {
             try
             {
-                Console.WriteLine("Введите выражение:");
+                IOManager.WriteMessage("Введите выражение:");
 
-                var str = Console.ReadLine();
+                var str = IOManager.ReadLine();
 
                 if (string.IsNullOrEmpty(str))
                     throw new Exception("Line is empty!");
 
-                Console.WriteLine(Calculation(str));
+                IOManager.WriteMessage(Calculation(str).ToString());
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                IOManager.WriteMessage(ex.Message);
             }
         }
 
