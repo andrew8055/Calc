@@ -38,7 +38,7 @@ namespace Calc
                         continue;
                     }
 
-                    if (i != 0 && splitSource[i].Equals(Operators.Minus) &&
+                    if (i != 0 && i + 1 < splitSource.Count && splitSource[i].Equals(Operators.Minus) &&
                         Operators.Priority.ContainsKey(splitSource[i - 1]))
                     {
                         postfixNotation.Add(string.Concat(splitSource[i], splitSource[i + 1]));

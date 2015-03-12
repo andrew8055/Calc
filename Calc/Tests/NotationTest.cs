@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -12,7 +13,7 @@ namespace Calc.Tests
         public void SuccessfullyWorkWithoutBrackets()
         {
             var postfixNot = notation.Convert2PostfixNotation("5+3*10");
-            var v = postfixNot.Aggregate(string.Empty, (current, not) => current + not);
+            var v = AggregatePostfixNot(postfixNot);
 
             Assert.AreEqual(v, "5310*+");
         }
@@ -21,7 +22,7 @@ namespace Calc.Tests
         public void SuccessfullyWorkWithBrackets()
         {
             var postfixNot = notation.Convert2PostfixNotation("(7-(1+2))*4+3");
-            var v = postfixNot.Aggregate(string.Empty, (current, not) => current + not);
+            var v = AggregatePostfixNot(postfixNot);
 
             Assert.AreEqual(v, "712+-4*3+");
         }
@@ -36,9 +37,23 @@ namespace Calc.Tests
         public void CorrectWorksWithNegativeNumbers()
         {
             var postfixNot = notation.Convert2PostfixNotation("5+-7");
-            var v = postfixNot.Aggregate(string.Empty, (current, not) => current + not);
+            var v = AggregatePostfixNot(postfixNot);
 
             Assert.AreEqual(v, "5-7+");
+        }
+
+        [Test]
+        public void IndexIsNotExitOutsideSplitSource()
+        {
+            var postfixNot = notation.Convert2PostfixNotation("5--");
+            var v = AggregatePostfixNot(postfixNot);
+
+            Assert.AreEqual(v, "5--");
+        }
+
+        string AggregatePostfixNot(List<string> postfixNot)
+        {
+            return postfixNot.Aggregate(string.Empty, (current, not) => current + not);
         }
     }
 }
