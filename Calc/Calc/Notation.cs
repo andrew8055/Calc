@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Calc
 {
@@ -11,11 +12,11 @@ namespace Calc
             var postfixNotation = new List<string>();
             var operationsStack = new Stack<string>();
 
-            foreach (var el in splitSource)
+            for (int i = 0; i < splitSource.Count(); ++i)
             {
-                if (Operators.Priority.ContainsKey(el))
+                if (Operators.Priority.ContainsKey(splitSource[i]))
                 {
-                    if (el.Equals(Operators.CloseBracket))
+                    if (splitSource[i].Equals(Operators.CloseBracket))
                     {
                         var isOpenBracketExist = false;
 
@@ -31,27 +32,35 @@ namespace Calc
                             postfixNotation.Add(operationsStack.Pop());
                         }
 
-                        if(!isOpenBracketExist)
+                        if (!isOpenBracketExist)
                             throw new Exception("Open bracket not found!");
 
                         continue;
                     }
 
+                    if (i != 0 && splitSource[i].Equals(Operators.Minus) &&
+                        Operators.Priority.ContainsKey(splitSource[i - 1]))
+                    {
+                        postfixNotation.Add(string.Concat(splitSource[i], splitSource[i + 1]));
+                        i += 1;
+                        continue;
+                    }
+
                     while (operationsStack.Count != 0)
                     {
-                        if (Operators.Priority[el] <= Operators.Priority[operationsStack.Peek()] &&
-                            !el.Equals(Operators.OpenBracket))
+                        if (Operators.Priority[splitSource[i]] <= Operators.Priority[operationsStack.Peek()] &&
+                            !splitSource[i].Equals(Operators.OpenBracket))
                             postfixNotation.Add(operationsStack.Pop());
                         else
                             break;
                     }
 
-                    operationsStack.Push(el);
+                    operationsStack.Push(splitSource[i]);
                 }
                 else
-                    postfixNotation.Add(el);
+                    postfixNotation.Add(splitSource[i]);
             }
-            
+
             while (operationsStack.Count != 0)
                 postfixNotation.Add(operationsStack.Pop());
 

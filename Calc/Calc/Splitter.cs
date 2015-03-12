@@ -18,13 +18,13 @@ namespace Calc
             return str.Remove(0, 1).ToString();
         }
 
-        public static IEnumerable<string> SplitSourceStr(string str)
+        public static List<string> SplitSourceStr(string str)
         {
             str = str.Replace(" ", "");
             string pattern = GeneratePattern();
             var regex = new Regex(pattern);
 
-            return regex.Split(str).Where(x => x != string.Empty);
+            return regex.Split(str).Where(x => x != string.Empty).ToList();
         }
     }
 }

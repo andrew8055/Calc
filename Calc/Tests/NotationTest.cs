@@ -31,5 +31,14 @@ namespace Calc.Tests
         {
             Assert.Throws<Exception>(() => notation.Convert2PostfixNotation("1+7)"));
         }
+
+        [Test]
+        public void CorrectWorksWithNegativeNumbers()
+        {
+            var postfixNot = notation.Convert2PostfixNotation("5+-7");
+            var v = postfixNot.Aggregate(string.Empty, (current, not) => current + not);
+
+            Assert.AreEqual(v, "5-7+");
+        }
     }
 }
